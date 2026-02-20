@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun Spesial</title>
+    
+    <!-- Meta Tags untuk SEO dan Social Media -->
+    <meta name="description" content="Website ulang tahun interaktif dengan animasi 3D dan musik">
+    <meta name="author" content="Birthday Creator">
+    <meta property="og:title" content="Selamat Ulang Tahun Spesial">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="Sebuah kejutan ulang tahun interaktif untuk orang tersayang">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Font Awesome 6 (Ikon Lengkap) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts Premium -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Anime.js untuk Animasi Lanjutan -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    
+    <!-- GSAP untuk Animasi Premium -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/MotionPathPlugin.min.js"></script>
+    
+    <!-- Three.js untuk Efek 3D Lanjutan -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Howler.js untuk Audio Management -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+    
+    <!-- PDF.js untuk Membaca PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    
+    <!-- SweetAlert2 untuk Popup Cantik -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <!-- Canvas Confetti untuk Efek -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
+</head>
+<body>
+    <!-- Preloader dengan Animasi Kompleks -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-content">
+            <div class="preloader-logo">
+                <svg viewBox="0 0 100 100" class="preloader-svg">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="#ff1493" stroke-width="2" stroke-dasharray="283" stroke-dashoffset="283">
+                        <animate attributeName="stroke-dashoffset" dur="2s" values="283;0" fill="freeze" />
+                    </circle>
+                    <circle cx="50" cy="50" r="35" fill="none" stroke="#ff69b4" stroke-width="2" stroke-dasharray="220" stroke-dashoffset="220">
+                        <animate attributeName="stroke-dashoffset" dur="2s" values="220;0" begin="0.5s" fill="freeze" />
+                    </circle>
+                    <text x="50" y="55" text-anchor="middle" fill="#ff1493" font-size="12" font-family="Great Vibes" opacity="0">
+                        <animate attributeName="opacity" dur="1s" values="0;1" begin="1.5s" fill="freeze" />
+                        ♥
+                    </text>
+                </svg>
+            </div>
+            <div class="preloader-text" id="preloaderText">Sesuatu Untukmu</div>
+            <div class="preloader-bar-container">
+                <div class="preloader-bar" id="preloaderBar"></div>
+                <div class="preloader-bar-glow"></div>
+            </div>
+            <div class="preloader-progress" id="preloaderProgress">0%</div>
+            <div class="preloader-hearts">
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Particle Canvas untuk Background -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Background Glow Effect -->
+    <div class="bg-glay">
+        <div class="glow-1"></div>
+        <div class="glow-2"></div>
+        <div class="glow-3"></div>
+        <div class="glow-4"></div>
+    </div>
+
+    <!-- Floating Elements -->
+    <div class="floating-elements" id="floatingElements"></div>
+
+    <!-- Main Container -->
+    <div class="main-container" id="mainContainer">
+        
+        <!-- HOME PAGE -->
+        <section class="page active" id="homePage">
+            <div class="home-content">
+                <div class="floating-balloons">
+                    <div class="balloon balloon-1"></div>
+                    <div class="balloon balloon-2"></div>
+                    <div class="balloon balloon-3"></div>
+                    <div class="balloon balloon-4"></div>
+                    <div class="balloon balloon-5"></div>
+                    <div class="balloon balloon-6"></div>
+                </div>
+                
+                <div class="title-container">
+                    <h1 class="glitch-title" data-text="Selamat">Selamat</h1>
+                    <h1 class="glow-title-gradient">Ulang Tahun</h1>
+                    <div class="typewriter-wrapper">
+                        <h2 class="typewriter-pink" id="typewriterName"></h2>
+                        <span class="typewriter-cursor">|</span>
+                    </div>
+                </div>
+                
+                <div class="birthday-cake-mini">
+                    <div class="mini-cake">
+                        <div class="mini-layer layer1"></div>
+                        <div class="mini-layer layer2"></div>
+                        <div class="mini-layer layer3"></div>
+                        <div class="mini-candle">
+                            <div class="mini-flame"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="button-container">
+                    <button class="btn-start" id="startBtn">
+                        <span class="btn-border"></span>
+                        <span class="btn-border-hover"></span>
+                        <span class="btn-icon">
+                            <i class="fas fa-play"></i>
+                            <i class="fas fa-play second"></i>
+                        </span>
+                        <span class="btn-text">Mulai Petualangan</span>
+                        <span class="btn-sparkle"></span>
+                        <span class="btn-sparkle sparkle2"></span>
+                    </button>
+                    
+                    <div class="scroll-hint">
+                        <span>Scroll untuk melihat</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="home-footer">
+                <div class="music-player-mini" id="miniMusicPlayer">
+                    <i class="fas fa-music"></i>
+                    <div class="music-wave">
+                        <span></span><span></span><span></span><span></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRESENT PAGE -->
+        <section class="page" id="presentPage">
+            <div class="present-container">
+                <!-- Progress Bar -->
+                <div class="journey-progress">
+                    <div class="progress-steps">
+                        <div class="step active" data-step="1">
+                            <span class="step-icon"><i class="fas fa-birthday-cake"></i></span>
+                            <span class="step-label">Kue</span>
+                        </div>
+                        <div class="step" data-step="2">
+                            <span class="step-icon"><i class="fas fa-gift"></i></span>
+                            <span class="step-label">Hadiah</span>
+                        </div>
+                        <div class="step" data-step="3">
+                            <span class="step-icon"><i class="fas fa-book"></i></span>
+                            <span class="step-label">Buku</span>
+                        </div>
+                        <div class="step" data-step="4">
+                            <span class="step-icon"><i class="fas fa-envelope"></i></span>
+                            <span class="step-label">Surat</span>
+                        </div>
+                    </div>
+                    <div class="progress-line">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+
+                <!-- Cake Section dengan 3D Parallax -->
+                <div class="scene-section" id="cakeScene">
+                    <div class="scene-container" id="cakeContainer">
+                        <!-- Canvas untuk Three.js Cake -->
+                        <canvas id="cakeCanvas"></canvas>
+                    </div>
+                    
+                    <div class="scene-overlay">
+                        <div class="scene-hint" id="cakeHint">
+                            <span class="hint-text">✨ klik kuenya ✨</span>
+                            <span class="hint-arrow"><i class="fas fa-arrow-down"></i></span>
+                        </div>
+                        
+                        <div class="candle-status" id="candleStatus">
+                            <div class="candle-indicator">
+                                <span class="indicator-light"></span>
+                                <span class="indicator-text">Lilin belum menyala</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Particle Effect untuk Lilin -->
+                    <div class="flame-particles" id="flameParticles"></div>
+                </div>
+
+                <!-- Gift Section dengan 3D -->
+                <div class="scene-section hidden" id="giftScene">
+                    <div class="scene-container" id="giftContainer">
+                        <canvas id="giftCanvas"></canvas>
+                    </div>
+                    
+                    <div class="scene-overlay">
+                        <div class="scene-hint" id="giftHint">
+                            <span class="hint-text">🎁 klik hadiahnya 🎁</span>
+                            <span class="hint-arrow"><i class="fas fa-arrow-down"></i></span>
+                        </div>
+                        
+                        <div class="gift-status" id="giftStatus">
+                            <div class="ribbon-status">
+                                <span class="ribbon-light"></span>
+                                <span class="ribbon-text">Pita masih terikat</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book Section dengan 3D -->
+                <div class="scene-section hidden" id="bookScene">
+                    <div class="scene-container" id="bookContainer">
+                        <canvas id="bookCanvas"></canvas>
+                    </div>
+                    
+                    <div class="scene-overlay">
+                        <div class="scene-hint" id="bookHint">
+                            <span class="hint-text">📖 buka bukunya 📖</span>
+                            <span class="hint-arrow"><i class="fas fa-arrow-down"></i></span>
+                        </div>
+                        
+                        <div class="book-preview" id="bookPreview">
+                            <div class="preview-thumbnail">
+                                <img src="assets/book-cover-thumb.jpg" alt="Book Cover" id="bookCover">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- PDF Viewer Modal -->
+                    <div class="pdf-modal" id="pdfModal">
+                        <div class="pdf-modal-content">
+                            <div class="pdf-header">
+                                <h3><i class="fas fa-book-open"></i> Board Book</h3>
+                                <button class="close-pdf" id="closePdf">&times;</button>
+                            </div>
+                            <div class="pdf-viewer" id="pdfViewer">
+                                <canvas id="pdfCanvas"></canvas>
+                            </div>
+                            <div class="pdf-controls">
+                                <button id="pdfPrev"><i class="fas fa-chevron-left"></i></button>
+                                <span id="pdfPageNum">1 / <span id="pdfPageCount">0</span></span>
+                                <button id="pdfNext"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hidden Letter Attachment (akan muncul di belakang buku) -->
+                <div class="letter-attachment" id="letterAttachment">
+                    <div class="letter-icon">
+                        <i class="fas fa-envelope-open-text"></i>
+                    </div>
+                    <div class="letter-label">Ada surat di belakang</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CLOSING PAGE -->
+        <section class="page" id="closingPage">
+            <div class="closing-background">
+                <div class="confetti-canvas" id="confettiCanvas"></div>
+                <div class="falling-petals" id="fallingPetals"></div>
+            </div>
+            
+            <div class="closing-container">
+                <!-- Amplop Surat 3D -->
+                <div class="envelope-3d" id="envelope3d">
+                    <div class="envelope-front">
+                        <div class="envelope-flap"></div>
+                        <div class="envelope-body">
+                            <div class="envelope-heart">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Surat dengan Efek Membuka -->
+                <div class="letter-reveal" id="letterReveal">
+                    <div class="letter-paper">
+                        <div class="letter-stamp"></div>
+                        
+                        <div class="letter-header">
+                            <h2 class="letter-greeting">Selamat Ulang Tahun</h2>
+                            <h1 class="letter-name" id="letterName"></h1>
+                        </div>
+                        
+                        <div class="letter-body" id="letterBody">
+                            <!-- Ucapan akan di-generate oleh JavaScript -->
+                        </div>
+                        
+                        <div class="letter-footer">
+                            <div class="signature">
+                                <span>Dari hati yang paling dalam,</span>
+                                <div class="signature-line"></div>
+                            </div>
+                            <div class="date-stamp">
+                                <span class="date-day"></span>
+                                <span class="date-month"></span>
+                                <span class="date-year"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="letter-decorations">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-heart"></i>
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tombol untuk mengulang -->
+                <div class="closing-actions">
+                    <button class="btn-replay" id="replayBtn">
+                        <i class="fas fa-redo-alt"></i>
+                        <span>Mainkan Lagi</span>
+                    </button>
+                    
+                    <button class="btn-share" id="shareBtn">
+                        <i class="fas fa-share-alt"></i>
+                        <span>Bagikan</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Audio Manager dengan Visualizer -->
+    <div class="audio-visualizer" id="audioVisualizer">
+        <div class="visualizer-bars">
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+        </div>
+    </div>
+
+    <!-- Control Panel -->
+    <div class="control-panel" id="controlPanel">
+        <button class="ctrl-btn" id="muteBtn">
+            <i class="fas fa-volume-up"></i>
+        </button>
+        <button class="ctrl-btn" id="fullscreenBtn">
+            <i class="fas fa-expand"></i>
+        </button>
+        <button class="ctrl-btn" id="settingsBtn">
+            <i class="fas fa-cog"></i>
+        </button>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <h3>Pengaturan</h3>
+            <div class="settings-option">
+                <label>Nama Penerima:</label>
+                <input type="text" id="nameInput" placeholder="Masukkan nama">
+            </div>
+            <div class="settings-option">
+                <label>Kecepatan Animasi:</label>
+                <select id="speedSelect">
+                    <option value="1">Normal</option>
+                    <option value="1.5">Cepat</option>
+                    <option value="0.5">Lambat</option>
+                </select>
+            </div>
+            <div class="settings-option">
+                <label>Efek Suara:</label>
+                <label class="switch">
+                    <input type="checkbox" id="sfxToggle" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <button class="close-modal" id="closeSettings">Tutup</button>
+        </div>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="js/config.js"></script>
+    <script src="js/particles.js"></script>
+    <script src="js/three-setup.js"></script>
+    <script src="js/cake-3d.js"></script>
+    <script src="js/gift-3d.js"></script>
+    <script src="js/book-3d.js"></script>
+    <script src="js/audio-manager.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
